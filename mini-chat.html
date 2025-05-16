@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot with Profile Images</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef1f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    #chatbox {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      overflow-y: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+    .message {
+      display: flex;
+      align-items: flex-start;
+      margin: 10px 0;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .text {
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 70%;
+    }
+    .user-msg {
+      flex-direction: row-reverse;
+    }
+    .user-msg .text {
+      background: #cce5ff;
+      margin-left: 10px;
+      margin-right: 0;
+    }
+    #inputArea {
+      display: flex;
+      max-width: 600px;
+      width: 100%;
+      gap: 10px;
+    }
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Chat with SimpleBot 🤖</h2>
+
+<div id="chatbox"></div>
+
+<div id="inputArea">
+  <input type="text" id="userInput" placeholder="Say something...">
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+  const chatbox = document.getElementById('chatbox');
+
+  function appendMessage(sender, message, avatarUrl) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${sender === 'user' ? 'user-msg' : ''}`;
+
+    const avatar = document.createElement('img');
+    avatar.src = avatarUrl;
+    avatar.className = 'avatar';
+
+    const text = document.createElement('div');
+    text.className = 'text';
+    text.textContent = message;
+
+    msgDiv.appendChild(avatar);
+    msgDiv.appendChild(text);
+    chatbox.appendChild(msgDiv);
+    chatbox.scrollTop = chatbox.scrollHeight;
+  }
+
+  function getBotResponse(input) {
+    const msg = input.toLowerCase();
+    if (msg.includes("hello")) return "Hi there! 👋";
+    if (msg.includes("help")) return "Sure! What do you need help with?";
+    if (msg.includes("bye")) return "Goodbye!";
+    return "Sorry, I don’t understand that yet.";
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('userInput');
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    appendMessage('user', userText, 'https://i.pravatar.cc/40?img=1'); // User avatar
+    setTimeout(() => {
+      const botReply = getBotResponse(userText);
+      appendMessage('bot', botReply, 'https://i.pravatar.cc/40?img=2'); // Bot avatar
+    }, 500);
+
+    input.value = '';
+  }
+
+  document.getElementById('userInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+</script>
+
+</body>
+</html>
