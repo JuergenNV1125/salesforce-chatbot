@@ -102,13 +102,72 @@
     chatbox.scrollTop = chatbox.scrollHeight;
   }
 
-  function getBotResponse(input) {
-    const msg = input.toLowerCase();
-    if (msg.includes("hello")) return "Hi there! 👋";
-    if (msg.includes("help")) return "Sure! What do you need help with?";
-    if (msg.includes("bye")) return "Goodbye!";
-    return "Sorry, I don’t understand that yet.";
+ function getBotResponse(input) {
+  const msg = input.toLowerCase();
+
+  if (msg.includes("hello") || msg.includes("hi")) {
+    return "Hi there! 👋 I'm your Salesforce assistant. Ask me about Flows, Apex, Objects, Service Cloud, CPQ, Marketing Cloud, and more.";
   }
+
+  if (msg.includes("help")) {
+    return "Sure! You can ask me about Salesforce products and features like Flows, Apex, Service Cloud, CPQ, Marketing Cloud, and differences between Profiles and Roles.";
+  }
+
+  if (msg.includes("bye")) {
+    return "Goodbye! 👋 Let me know if you need more help with Salesforce next time.";
+  }
+
+  // Core Salesforce
+  if (msg.includes("what is salesforce")) {
+    return "Salesforce is the world's #1 cloud-based CRM platform. It helps companies manage customer relationships, sales, support, and marketing through customizable apps and automation.";
+  }
+
+  if (msg.includes("flow")) {
+    return "Flows automate business processes in Salesforce using clicks, not code. You can build guided user experiences or background automations using screen flows and auto-launched flows.";
+  }
+
+  if (msg.includes("apex")) {
+    return "Apex is Salesforce's programming language used to write custom logic like triggers and classes. It's powerful, scalable, and tightly integrated with the Salesforce platform.";
+  }
+
+  if (msg.includes("sandbox")) {
+    return "A sandbox is a copy of your Salesforce environment used for development, testing, and training without impacting live production data.";
+  }
+
+  if (msg.includes("profile vs role") || msg.includes("difference between role and profile")) {
+    return "Profiles control what users *can do* (permissions). Roles control what users *can see* (data visibility). Both work together to manage access.";
+  }
+
+  if (msg.includes("object") && msg.includes("what")) {
+    return "Objects are like tables in a database. They store data like Accounts, Contacts, or any custom records you create. Each object has fields and relationships.";
+  }
+
+  if (msg.includes("trigger")) {
+    return "A Trigger is an Apex script that runs before or after database operations. It’s used to enforce business logic or automate actions when records are inserted, updated, or deleted.";
+  }
+
+  if (msg.includes("lightning")) {
+    return "Lightning is Salesforce's modern UI framework. Lightning Experience improves productivity, and Lightning Web Components (LWC) let you build dynamic apps efficiently.";
+  }
+
+  // New: Service Cloud
+  if (msg.includes("service cloud")) {
+    return "Service Cloud is Salesforce’s customer service and support platform. It helps agents resolve cases efficiently using tools like the console, macros, knowledge articles, live chat, and Omni-Channel routing.";
+  }
+
+  // New: CPQ
+  if (msg.includes("cpq")) {
+    return "CPQ stands for Configure, Price, Quote. Salesforce CPQ helps sales teams configure complex products, calculate accurate pricing, and generate professional quotes quickly—all from within Salesforce.";
+  }
+
+  // New: Marketing Cloud
+  if (msg.includes("marketing cloud")) {
+    return "Marketing Cloud is Salesforce's digital marketing platform. It lets you build personalized journeys across email, SMS, social, and ads. Key tools include Journey Builder, Email Studio, and Automation Studio.";
+  }
+
+  return "Sorry, I didn’t understand that. Try asking about Flows, Apex, Service Cloud, CPQ, Marketing Cloud, or the difference between Profiles and Roles!";
+}
+
 
   function sendMessage() {
     const input = document.getElementById('userInput');
